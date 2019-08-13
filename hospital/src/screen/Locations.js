@@ -29,7 +29,7 @@ export default class Locations extends Component {
         longitudeDelta: 0
       },
       error: null,
-      healthCare: healthCare
+      healthCare: null
     };
   }
 
@@ -52,25 +52,33 @@ export default class Locations extends Component {
       { enableHighAccuracy: true, timeout: 20000 }
     );
 
-    // this.panggilDB();
+    this.panggilDB();
   }
 
   // method from programmer need to bind ---------------------------------------------------------------------
 
-  // panggilDB = () => {
-  //   fetch("http://192.168.1.107:8082/hospital")
-  //     .then(response => response.json())
-  //     .then(responseJson => {
-  //       this.setState({
-  //         type: JSON.stringify(responseJson.result[0]["type"]),
-  //         description: JSON.stringify(responseJson.result[0]["description"]),
-  //         latlng: {
-  //           lat: JSON.stringify(responseJson.result[0]["lat"]),
-  //           lon: JSON.stringify(responseJson.result[0]["lon"])
-  //         }
-  //       });
-  //     });
-  // };
+  panggilDB = () => {
+    fetch("http://192.168.1.107:8082/hospital")
+      .then(response => response.json())
+      .then(responseJson => {
+        this.setState({
+          ...this.state,
+          healthCare: responseJson.map(h => {
+            return {
+              id: h.hfc_id,
+              type: h.type,
+              name: h.hfc_cd_name,
+              description: h.description,
+              image: h.image,
+              latlng: {
+                latitude: h.latitude,
+                longitude: h.longitude
+              }
+            }
+          })
+        });
+      });
+  };
 
   // panggilDB = () => {
   //   fetch("http://192.168.1.107:8082/hospital")
