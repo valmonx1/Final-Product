@@ -126,10 +126,10 @@ export default class Locations extends Component {
   }
 
   handleTab = tabKey => {
-    let newhealthCare = healthCare;
+    let newhealthCare = this.state.originalHC;
 
     if (tabKey !== "all") {
-      newhealthCare = healthCare.filter(health => health.type === tabKey);
+      newhealthCare = newhealthCare.filter(health => health.type === tabKey);
     }
 
     this.setState({ active: tabKey, healthCare: newhealthCare });
