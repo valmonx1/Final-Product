@@ -61,21 +61,24 @@ export default class Locations extends Component {
     fetch("http://192.168.1.107:8082/hospital")
       .then(response => response.json())
       .then(responseJson => {
+        const originalHC = responseJson.map(h => {
+          return {
+            id: h.hfc_id,
+            type: h.type,
+            name: h.hfc_cd_name,
+            description: h.description,
+            image: h.image,
+            latlng: {
+              latitude: h.latitude,
+              longitude: h.longitude
+            },
+            distance: h.distance
+          }
+        });
         this.setState({
           ...this.state,
-          healthCare: responseJson.map(h => {
-            return {
-              id: h.hfc_id,
-              type: h.type,
-              name: h.hfc_cd_name,
-              description: h.description,
-              image: h.image,
-              latlng: {
-                latitude: h.latitude,
-                longitude: h.longitude
-              }
-            }
-          })
+          healthCare: originalHC,
+          originalHC: originalHC
         });
       });
   };
@@ -144,7 +147,9 @@ export default class Locations extends Component {
                 stylesLocation.first,
                 distance === "AllD" ? stylesLocation.active : null
               ]}
-              onPress={() => this.setState({ distance: "AllD" })}
+              onPress={() => this.setState({
+                healthCare: this.state.originalHC
+              })}
             >
               <Text style={stylesLocation.jarak}>All</Text>
             </TouchableOpacity>
@@ -153,7 +158,11 @@ export default class Locations extends Component {
                 stylesLocation.button,
                 distance === "1Km" ? stylesLocation.active : null
               ]}
-              onPress={() => this.setState({ distance: "1Km" })}
+              onPress={() => this.setState({
+                healthCare: this.state.originalHC.filter(h => {
+                  return parseInt(h.distance) <= 1;
+                })
+              })}
             >
               <Text style={stylesLocation.jarak}>1Km</Text>
             </TouchableOpacity>
@@ -162,7 +171,11 @@ export default class Locations extends Component {
                 stylesLocation.button,
                 distance === "5Km" ? stylesLocation.active : null
               ]}
-              onPress={() => this.setState({ distance: "5Km" })}
+              onPress={() => this.setState({
+                healthCare: this.state.originalHC.filter(h => {
+                  return parseInt(h.distance) <= 5;
+                })
+              })}
             >
               <Text style={stylesLocation.jarak}>5Km</Text>
             </TouchableOpacity>
@@ -172,7 +185,11 @@ export default class Locations extends Component {
                 stylesLocation.last,
                 distance === "10Km" ? stylesLocation.active : null
               ]}
-              onPress={() => this.setState({ distance: "10Km" })}
+              onPress={() => this.setState({
+                healthCare: this.state.originalHC.filter(h => {
+                  return parseInt(h.distance) <= 10;
+                })
+              })}
             >
               <Text style={stylesLocation.jarak}>10Km</Text>
             </TouchableOpacity>
