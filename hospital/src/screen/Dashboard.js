@@ -54,7 +54,7 @@ export default class Dashboard extends Component {
   panggilDelayData = () => {
     this.getPatient_id().then(pmi_no => {
       this.state.pmi_no = pmi_no;
-      fetch("http://192.168.1.107:8082/show_no/" + pmi_no)
+      fetch("http://192.168.43.114:8082/show_no/" + pmi_no)
         .then(response => response.json())
         .then(responseJson => {
           this.setState({
@@ -82,7 +82,7 @@ export default class Dashboard extends Component {
       this.getDisc_cd().then(discipline_cd => {
         this.state.discipline_cd = discipline_cd;
         fetch(
-          "http://192.168.1.107:8082/show_now/" + hfc_cd + "/" + discipline_cd
+          "http://192.168.43.114:8082/show_now/" + hfc_cd + "/" + discipline_cd
         )
           .then(response => response.json())
           .then(responseJson => {

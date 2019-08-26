@@ -25,7 +25,7 @@ export default class Login extends Component {
   }
 
   componentDidMount() {
-    return fetch("http://192.168.1.107:8082/type_id")
+    return fetch("http://192.168.43.114:8082/type_id")
       .then(response => response.json())
       .then(responseJson => {
         this.setState(
@@ -58,7 +58,7 @@ export default class Login extends Component {
       // this.setState({ email: 'Please enter password' })
     } else {
       console.log(this.state.patient_name);
-      let response = await fetch("http://192.168.1.107:8082/user", {
+      let response = await fetch("http://192.168.43.114:8082/user", {
         method: "POST",
         headers: {
           Accept: "application/json",

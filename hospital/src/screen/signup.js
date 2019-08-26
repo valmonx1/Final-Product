@@ -31,7 +31,7 @@ export default class signup extends Component {
   }
 
   componentDidMount() {
-    return fetch("http://192.168.1.107:8082/type_id")
+    return fetch("http://192.168.43.114:8082/type_id")
       .then(response => response.json())
       .then(responseJson => {
         this.setState(
@@ -71,7 +71,7 @@ export default class signup extends Component {
     } else {
       // alert(JSON.stringify(this.state));
       // return;
-      fetch("http://192.168.1.107:8082/register", {
+      fetch("http://192.168.43.114:8082/register", {
         method: "POST",
         headers: {
           Accept: "application/json",

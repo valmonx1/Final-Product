@@ -30,7 +30,7 @@ export default class Patient extends Component {
   }
 
   componentDidMount() {
-    fetch("http://192.168.1.107:8082/hospital")
+    fetch("http://192.168.43.114:8082/hospital")
       .then(response => response.json())
       .then(responseJson => {
         this.setState({
@@ -63,7 +63,7 @@ export default class Patient extends Component {
     } else if (discipline_cd == "") {
       alert("Please select Discipline");
     } else {
-      fetch("http://192.168.1.107:8082/select_pms_last_queue", {
+      fetch("http://192.168.43.114:8082/select_pms_last_queue", {
         method: "POST",
         headers: {
           Accept: "application/json",
@@ -117,7 +117,7 @@ export default class Patient extends Component {
     // alert(this.state.hfc_cd);
     this.state.isLoading = true;
     //pegang id
-    fetch("http://192.168.1.107:8082/discipline/" + selectedHospId)
+    fetch("http://192.168.43.114:8082/discipline/" + selectedHospId)
       .then(response => response.json())
       .then(responseJson => {
         this.setState({
@@ -135,7 +135,7 @@ export default class Patient extends Component {
     // alert(this.state.discipline_cd);
     //this.state.hfc_cd bawa balik dari selectedhospid
     fetch(
-      "http://192.168.1.107:8082/queue_name/" +
+      "http://192.168.43.114:8082/queue_name/" +
         this.state.hfc_cd +
         "/" +
         this.state.discipline_cd

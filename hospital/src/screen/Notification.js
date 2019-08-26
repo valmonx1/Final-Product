@@ -35,7 +35,6 @@ export default class Notification extends Component {
     this._interval = setInterval(() => {
       this.webCall();
     }, 1000);
-    this.count();
   }
 
   componentWillUnmount() {
@@ -74,7 +73,7 @@ export default class Notification extends Component {
       this.getDisc_cd().then(discipline_cd => {
         this.state.discipline_cd = discipline_cd;
         return fetch(
-          "http://192.168.1.107:8082/notification_new/" +
+          "http://192.168.43.114:8082/notification_new/" +
             hfc_cd +
             "/" +
             discipline_cd
@@ -97,30 +96,25 @@ export default class Notification extends Component {
 
   // count call data ---------------------------------------------------------------------------------------------
 
-  count = () => {
-    this.getHFC_cd().then(hfc_cd => {
-      this.state.hfc_cd = hfc_cd;
-      this.getDisc_cd().then(discipline_cd => {
-        this.state.discipline_cd = discipline_cd;
-        return fetch(
-          "http://192.168.1.107:8082/notification_count/" +
-            hfc_cd +
-            "/" +
-            discipline_cd
-        )
-          .then(response => response.json())
-          .then(responseJson => {
-            this.setState({
-              isLoading: false,
-              dataSource: responseJson
-            });
-          })
-          .catch(error => {
-            console.error(error);
-          });
-      });
-    });
-  };
+  // updateCount = () => {
+  //   this.getHFC_cd().then(hfc_cd => {
+  //     this.state.hfc_cd = hfc_cd;
+  //     this.getDisc_cd().then(discipline_cd => {
+  //       this.state.discipline_cd = discipline_cd;
+  //       return fetch(
+  //         "http://192.168.43.114:8082/notification_update/" +
+  //           hfc_cd +
+  //           "/" +
+  //           discipline_cd
+  //       )
+  //         .then(response => response.json())
+  //         .then(responseJson => {})
+  //         .catch(error => {
+  //           console.error(error);
+  //         });
+  //     });
+  //   });
+  // };
 
   // end count call data ------------------------------------------------------------------------------------------
 
@@ -149,7 +143,7 @@ export default class Notification extends Component {
           style={{ flex: 1, justifyContent: "center", alignItems: "center" }}
         >
           <ActivityIndicator size="large" />
-          <Text>Hye</Text>
+          <Text>Please Wait data is loading</Text>
         </View>
       );
     }

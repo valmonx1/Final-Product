@@ -29,7 +29,7 @@ export default class Doctor extends Component {
   }
 
   componentDidMount() {
-    return fetch("http://192.168.1.107:8082/doctor")
+    return fetch("http://192.168.43.114:8082/doctor")
       .then(response => response.json())
       .then(responseJson => {
         let ds = new ListView.DataSource({
