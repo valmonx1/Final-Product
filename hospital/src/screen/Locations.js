@@ -29,7 +29,7 @@ export default class Locations extends Component {
         longitudeDelta: 0
       },
       error: null,
-      healthCare: healthCare
+      healthCare: null
     };
   }
 
